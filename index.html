@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Step Tracker</title>
+    <style>
+      body {
+        background-color: #yellow;
+        font-family: Arial;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        background-color: white;
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #333;
+        font-size: 32px;
+        margin-top: 0;
+        text-align: center;
+      }
+
+      label {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      input[type="number"],
+      input[type="date"] {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 18px;
+        padding: 10px;
+      }
+
+      input[type="submit"],
+      button {
+        background-color: #333;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 10px;
+      }
+
+      input[type="submit"]:hover,
+      button:hover {
+        background-color: #555;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #f2f2f2;
+        font-size: 18px;
+      }
+
+      button {
+        margin-top: 20px;
+      }
+
+     }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Steps</h1>
+      <form method="POST">
+        <label for="steps">Number:</label>
+        <input type="number" id="steps" name="steps" required>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+        <input type="submit" value="Submit">
+      </form>
+      {% if steps %}
+        <table>
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Steps</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for step in steps %}
+              <tr>
+                <td>{{ step.number }}</td>
+                <td>{{ step.steps }}</td>
+                <td>{{ step.date }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <button onclick="location.href='{{ url_for('clear') }}'">Clear</button>
+      {% else %}
+        <p class="empty-message">No records.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
